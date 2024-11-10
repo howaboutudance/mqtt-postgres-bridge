@@ -8,7 +8,7 @@ import psycopg.sql
 import pytest
 
 from psycopg_async_listen.execute import listen_for_notifications
-from psycopg_async_listen.util import help_send_notification
+from psycopg_async_listen.publish import help_send_notification
 
 
 # write an integration test that uses two client connections to:
