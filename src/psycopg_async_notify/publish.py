@@ -5,8 +5,8 @@ import json
 import logging
 import uuid
 
-from psycopg_async_listen import db
-from psycopg_async_listen.db import get_connection
+from psycopg_async_notify import db
+from psycopg_async_notify.db import get_connection
 
 # Logger
 _log = logging.getLogger(__name__)

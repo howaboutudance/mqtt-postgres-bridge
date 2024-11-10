@@ -7,8 +7,8 @@ import psycopg
 import psycopg.sql
 import pytest
 
-from psycopg_async_listen.execute import listen_for_notifications
-from psycopg_async_listen.publish import help_send_notification
+from psycopg_async_notify.execute import listen_for_notifications
+from psycopg_async_notify.publish import help_send_notification
 
 
 # write an integration test that uses two client connections to:
@@ -57,9 +57,9 @@ async def test_intg_listen_for_notifications():
 @pytest.mark.asyncio
 async def test_listen_for_notifications_handlers():
     with (
-        mock.patch("psycopg_async_listen.execute.get_connection") as m_get_connection,
-        mock.patch("psycopg_async_listen.db.psycopg.AsyncConnection.add_notify_handler") as m_add_notify_handler,
-        mock.patch("psycopg_async_listen.db.psycopg.AsyncConnection.remove_notify_handler") as m_remove_notify_handler,
+        mock.patch("psycopg_async_notify.execute.get_connection") as m_get_connection,
+        mock.patch("psycopg_async_notify.db.psycopg.AsyncConnection.add_notify_handler") as m_add_notify_handler,
+        mock.patch("psycopg_async_notify.db.psycopg.AsyncConnection.remove_notify_handler") as m_remove_notify_handler,
     ):
         m_queue = asyncio.Queue()
         m_channel = "test_channel"

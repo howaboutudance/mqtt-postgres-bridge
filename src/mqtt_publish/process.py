@@ -5,7 +5,7 @@ import logging
 
 from mqtt_listen.listen import QueueOnMessageFactory, setup_client
 from mqtt_listen.process import process_messages_to_queue
-from psycopg_async_listen.publish import publish_to_pg_notify
+from psycopg_async_notify.publish import publish_to_pg_notify
 
 # Logger
 _log = logging.getLogger(__name__)

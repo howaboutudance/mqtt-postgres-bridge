@@ -3,7 +3,7 @@
 import asyncio
 import logging
 
-from psycopg_async_listen.publish import help_send_notification
+from psycopg_async_notify.publish import help_send_notification
 
 _log = logging.getLogger(__name__)
 

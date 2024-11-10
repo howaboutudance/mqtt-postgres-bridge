@@ -6,7 +6,7 @@ from typing import AsyncGenerator
 
 import psycopg
 
-from psycopg_async_listen.config import CONFIG
+from psycopg_async_notify.config import CONFIG
 
 _log = logging.getLogger(__name__)
 

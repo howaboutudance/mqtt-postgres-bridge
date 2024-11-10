@@ -3,8 +3,8 @@
 import asyncio
 import logging
 
-from psycopg_async_listen.db import get_connection
-from psycopg_async_listen.listen import QueuePutNotifyHandler
+from psycopg_async_notify.db import get_connection
+from psycopg_async_notify.listen import QueuePutNotifyHandler
 
 _log = logging.getLogger(__name__)
 

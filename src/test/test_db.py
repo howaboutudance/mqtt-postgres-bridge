@@ -2,7 +2,7 @@
 
 import pytest
 
-from psycopg_async_listen.db import get_cursor
+from psycopg_async_notify.db import get_cursor
 
 
 # write a integration test to connect to the database
