@@ -1,3 +1,5 @@
+"""Integration tests for the psycopg_async_notify package."""
+
 import asyncio
 
 import pytest
@@ -10,11 +12,13 @@ from psycopg_async_notify.publish import help_send_notification
 @pytest.mark.integration
 @pytest.mark.asyncio
 async def test_intg_listen_for_notifications():
-    # write an integration test that uses two client connections to:
-    # 1. listen for notifications that are added to a queue
-    # 2. execute a notification
-    # 3. assert the notification sent is in the queue
+    """Integration test for listen_for_notifications.
 
+    Test Plan:
+    - Create a queue to hold the notifications
+    - Create a task to listen for notifications
+    - Run a test task to send a notification and assert it is in the queue
+    """
     # create a queue to hold the notifications
     m_queue = asyncio.Queue()
 
@@ -47,13 +51,19 @@ async def test_intg_listen_for_notifications():
     try:
         await asyncio.wait_for(run_test_task(m_queue, listen_task), timeout=10)
     except asyncio.TimeoutError:
-        assert False, "Test timed out"
+        assert pytest.fail("Test took too long to run")
 
 
 # write a integration test to connect to the database
 @pytest.mark.integration
 @pytest.mark.asyncio
 async def test_intg_cursor():
+    """Integration test for get_cursor.
+
+    Test Plan:
+    - Connect to the database
+    - Execute a simple query
+    """
     async with get_cursor() as cursor:
         await cursor.execute("SELECT 1;")
         result = await cursor.fetchone()

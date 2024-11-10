@@ -13,6 +13,15 @@ from psycopg_async_notify.execute import listen_for_notifications
 # assert get_connection was called
 @pytest.mark.asyncio
 async def test_listen_for_notifications_handlers():
+    """Test listen_for_notifications.
+
+    Test Plan:
+    - Mock get_connection and add_notify_handler and remove_notify_handler
+    - Create a queue to hold the notifications
+    - Create a task to listen for notifications
+    - Sleep for a short time and then cancel the listening task
+    - Assert get_connection was called
+    """
     with (
         mock.patch("psycopg_async_notify.execute.get_connection") as m_get_connection,
         mock.patch("psycopg_async_notify.db.psycopg.AsyncConnection.add_notify_handler") as m_add_notify_handler,
@@ -39,10 +48,9 @@ async def test_listen_for_notifications_handlers():
 
         # cancel the listening task
         listening_task.cancel()
-        try:
+
+        with pytest.raises(asyncio.CancelledError):
             await listening_task
-        except asyncio.CancelledError:
-            pass
 
         # assert get_connection was called
         assert m_get_connection.call_count == 1

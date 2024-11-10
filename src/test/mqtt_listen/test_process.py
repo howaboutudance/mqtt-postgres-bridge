@@ -1,4 +1,4 @@
-"""Test the mqtt_listen.processor module"""
+"""Test the mqtt_listen.processor module."""
 
 import asyncio
 from unittest.mock import AsyncMock
@@ -13,6 +13,17 @@ from mqtt_listen.process import (process_messages_to_log,
 @pytest.mark.parametrize("queue_content, mocked_queue", [([], False), ([1, 2, 3], False), (None, True)])
 @pytest.mark.asyncio
 async def test_process_messages_to_log(queue_content, mocked_queue):
+    """Test the process_messages_to_log function.
+
+    Test Plan:
+    - parametrize the test with empty queue, queue with 3 messages and mocked queue
+    - create an input queue with the given content
+    - create a task with the process_messages_to_log function
+    - wait for 0.1 seconds
+    - cancel the task
+    - check if the task was cancelled
+    - if mocked queue, check if the get and empty methods were called
+    """
     m_topic = "test/test_process_messages_to_log"
     m_qos = 0
     if mocked_queue:
@@ -44,6 +55,16 @@ async def test_process_messages_to_log(queue_content, mocked_queue):
 @pytest.mark.parametrize("queue_content, mocked_queue", [([], False), ([1, 2, 3], False), (None, True)])
 @pytest.mark.asyncio
 async def test_process_messages_to_queue(queue_content, mocked_queue):
+    """Test the process_messages_to_queue function.
+
+    Test Plan:
+    - parametrize the test with empty queue, queue with 3 messages and mocked queue
+    - create an input queue with the given content
+    - create a task with the process_messages_to_queue function, wait and cancel it
+    - either:
+        - assert that methods were called on the mocked queue
+        - assert the output queue has the same content as the input queue
+    """
     m_topic = "test/test_process_messages_to_queue"
     m_qos = 0
     if mocked_queue:

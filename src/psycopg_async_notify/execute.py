@@ -30,7 +30,7 @@ async def listen_for_notifications(channel: str, queue: asyncio.Queue):
             try:
                 await conn.execute("SELECT 1;")
                 await asyncio.sleep(1)
-            except asyncio.CancelledError:
+            except asyncio.CancelledError as e:
                 conn.remove_notify_handler(notify_handler_factory.callback)
                 await conn.execute(f"UNLISTEN {channel};")
-                break
+                raise e

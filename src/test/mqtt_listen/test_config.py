@@ -4,6 +4,7 @@ from mqtt_listen.config import CONFIG
 
 
 def test_config():
+    """Test the CONFIG object."""
     # make sure the config is not empty
     assert CONFIG is not None
 

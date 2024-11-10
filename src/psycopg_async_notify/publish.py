@@ -1,4 +1,4 @@
-"""Functions to publish to PostgreSQL NOTIFY channel asynchronously"""
+"""Functions to publish to PostgreSQL NOTIFY channel asynchronously."""
 
 import asyncio
 import json
@@ -43,13 +43,22 @@ async def publish_to_pg_notify(queue: asyncio.Queue, topic: str):
 # write a helper function that will execute the notification
 # using a connection and cursor
 async def help_send_notification(channel: str = "test_channel", payload: str = "test_payload"):
+    """Send a notification to a PostgreSQL NOTIFY channel.
+
+    :param channel: The channel to send the notification to.
+    :param payload: The payload to send
+    """
     async with get_connection() as conn:
         _log.debug("sending notification")
         await conn.execute("SELECT pg_notify (%(channel)s, %(payload)s)", {"channel": channel, "payload": payload})
 
 
 async def help_send_notifcations_continuously(channel: str = "test_channel", payload: str = "test_payload"):
-    """Send notifications continuously until keyboard interrupt."""
+    """Send notifications continuously until keyboard interrupt.
+
+    :param channel: The channel to send the notification to.
+    :param payload: The payload to send
+    """
     async with get_connection() as conn:
         while True:
             try:

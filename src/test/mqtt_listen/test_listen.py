@@ -13,7 +13,15 @@ _log = logging.getLogger(__name__)
 
 @pytest.mark.asyncio
 async def test_setup_client():
-    """Test setup_client."""
+    """Test setup_client.
+
+    Test Plan:
+    - Mock the aiomqtt.Client() async context manager, the on_message function, and the client instance
+    - Run the setup_client function, sleeping for a short time and cancel the task
+    - Assert the client was created with the correct hostname
+    - Assert the client was subscribed to the correct topic
+    - Assert the on_message function was called with the message
+    """
     m_broker = "broker"
     m_topic = "test/test_setup_client"
 
@@ -61,7 +69,14 @@ async def test_setup_client():
 
 @pytest.mark.asyncio
 async def test_queue_on_message_factory():
-    """Test QueueOnMessageFactory."""
+    """Test QueueOnMessageFactory.
+
+    Test Plan:
+    - Create a QueueOnMessageFactory instance
+    - Mock the queue and message
+    - Call the on_message function
+    - Assert the message was added to the queue
+    """
     m_queue = asyncio.Queue()
     m_msg = mock.Mock()
     m_msg.payload = b"test_payload"

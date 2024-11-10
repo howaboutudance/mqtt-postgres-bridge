@@ -3,20 +3,29 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [metadata]
-name = "psycopg-async-listen"
-version = "0.1.0"
+name = "mqtt-postgres-bridge"
+version = "0.0.8"
 authors = [
     {name = "Michael Penhallegon", email = "mike@hematite.tech"}
 ]
 requires-python = ">=3.11"
+description = "A simple async bridge between MQTT and Postgres"
+license = "apache-2.0"
+depdenencies = [
+    "aiomqtt ~= 2.0",
+    "dynaconf >= 3.1",
+    "psycopg[binary] >= 3.0",
+]
 
 [options.extras_require]
 dev = [
     "ruff",
     "pytest",
     "pytest-cov",
+    "pytest-asyncio",
     "ipython",
-    "ipdb"
+    "ipdb",
+    "isort"
 ]
 
 [options.packages.find]
@@ -32,6 +41,17 @@ ignore = [
 
 [tool.ruff]
 line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E4", "E7", "E9", "F", 
+    "C", "W", "I", 
+    "D1", "D201", "D202", "D205", "D210", "D212", "D4",
+    "B"
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
 
 [tool.coverage.run]
 omit = [
