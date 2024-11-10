@@ -3,13 +3,13 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [metadata]
-name = "psycopg-async-listen"
-version = "0.1.0"
+name = "mqtt-postgres-bridge"
+version = "0.0.8"
 authors = [
     {name = "Michael Penhallegon", email = "mike@hematite.tech"}
 ]
 requires-python = ">=3.11"
-description = "A simple async listener for PostgreSQL"
+description = "A simple async bridge between MQTT and Postgres"
 license = "apache-2.0"
 depdenencies = [
     "aiomqtt ~= 2.0",
