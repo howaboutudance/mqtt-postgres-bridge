@@ -7,7 +7,6 @@ dynaconf >= 3.1
 
 # database: postgresql
 psycopg[binary] >= 3.0
-sqlalchemy >= 2.0
 
 # mqtt
 aiomqtt ~= 2.0
@@ -17,6 +16,10 @@ pytest >= 6.0
 pytest-cov >= 3.0
 pytest-asyncio >= 0.15
 coverage >= 6.0
+
+# debugging + development
+ipython >= 7.0
+ipdb >= 0.13
 
 # linting + formatting
 ruff >= 0.0

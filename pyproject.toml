@@ -9,14 +9,23 @@ authors = [
     {name = "Michael Penhallegon", email = "mike@hematite.tech"}
 ]
 requires-python = ">=3.11"
+description = "A simple async listener for PostgreSQL"
+license = "apache-2.0"
+depdenencies = [
+    "aiomqtt ~= 2.0",
+    "dynaconf >= 3.1",
+    "psycopg[binary] >= 3.0",
+]
 
 [options.extras_require]
 dev = [
     "ruff",
     "pytest",
     "pytest-cov",
+    "pytest-asyncio",
     "ipython",
-    "ipdb"
+    "ipdb",
+    "isort"
 ]
 
 [options.packages.find]
