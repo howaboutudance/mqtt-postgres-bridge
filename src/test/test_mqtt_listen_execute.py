@@ -1,7 +1,6 @@
 """Mqtt_listen execute tests."""
 
 import logging
-
 from unittest import mock
 
 import pytest

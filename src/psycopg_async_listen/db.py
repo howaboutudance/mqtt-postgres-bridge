@@ -1,7 +1,6 @@
 """Module of database connections and operations."""
 
 import logging
-
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
 

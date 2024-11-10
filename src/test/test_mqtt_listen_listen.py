@@ -3,8 +3,10 @@
 import asyncio
 import logging
 from unittest import mock
+
 import pytest
-from mqtt_listen.listen import setup_client, QueueOnMessageFactory
+
+from mqtt_listen.listen import QueueOnMessageFactory, setup_client
 
 _log = logging.getLogger(__name__)
 

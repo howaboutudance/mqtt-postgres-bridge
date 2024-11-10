@@ -2,7 +2,6 @@
 
 import asyncio
 import logging
-
 from abc import abstractmethod
 from typing import Any, Coroutine, Protocol
 
@@ -22,7 +21,7 @@ async def setup_client(hostname: str, topic: str, on_message: Coroutine[(aiomqtt
     """
     async with aiomqtt.Client(hostname) as client:
         _log.debug("subscribing_to=%s server=%s", topic, hostname)
-        client.subscribe(topic)
+        await client.subscribe(topic)
 
         while True:
             # if message is received, call the on_message function

@@ -1,10 +1,11 @@
 """Test the mqtt_listen.processor module"""
 
 import asyncio
+from unittest.mock import AsyncMock
 
 import aiomqtt
 import pytest
-from unittest.mock import AsyncMock
+
 from mqtt_listen.process import process_messages_to_log, process_messages_to_queue
 
 

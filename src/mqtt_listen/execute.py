@@ -3,9 +3,8 @@
 import asyncio
 import logging
 
-
 from mqtt_listen.config import CONFIG
-from mqtt_listen.listen import setup_client, QueueOnMessageFactory
+from mqtt_listen.listen import QueueOnMessageFactory, setup_client
 from mqtt_listen.process import process_messages_to_log
 
 # Logger
