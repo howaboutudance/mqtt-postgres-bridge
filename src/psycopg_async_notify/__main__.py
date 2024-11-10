@@ -6,8 +6,8 @@ import logging
 
 import psycopg
 
-from psycopg_async_listen.execute import listen_for_notifications
-from psycopg_async_listen.config import CONFIG
+from psycopg_async_notify.config import CONFIG
+from psycopg_async_notify.execute import listen_for_notifications
 
 _log = logging.getLogger(__name__)
 

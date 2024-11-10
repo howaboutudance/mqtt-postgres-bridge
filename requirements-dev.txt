@@ -9,6 +9,9 @@ dynaconf >= 3.1
 psycopg[binary] >= 3.0
 sqlalchemy >= 2.0
 
+# mqtt
+aiomqtt ~= 2.0
+
 # testing
 pytest >= 6.0
 pytest-cov >= 3.0
@@ -17,6 +20,7 @@ coverage >= 6.0
 
 # linting + formatting
 ruff >= 0.0
+isort >= 5.0
 
 # tox test runner
 tox >= 3.0

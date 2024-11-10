@@ -2,7 +2,7 @@
 import asyncio
 import logging
 
-from psycopg_async_listen.util import help_send_notifcations_continuously
+from psycopg_async_notify.publish import help_send_notifcations_continuously
 
 _log = logging.getLogger(__name__)
 
