@@ -1,5 +1,6 @@
 # A docker compose creating a development dependencies:
 # - a postgres database
+# - a mqtt broker
 version: '3.1'
 services:
   db:
@@ -13,3 +14,14 @@ services:
       - "5432:5432"
     volumes:
       - ./data/.pg_data:/var/lib/postgresql/data:z
+  mqtt:
+    image: eclipse-mosquitto
+    container_name: mqtt
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./scripts/podman/mosquitto/data:/mosquitto/data:z
+      - ./scripts/podman/mosquitto/log:/mosquitto/log:z
+      - ./scripts/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:z
+    restart: always
