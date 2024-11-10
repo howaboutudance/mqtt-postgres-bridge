@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import random
+
 from aiomqtt import Client
 
 # Setup a logger
