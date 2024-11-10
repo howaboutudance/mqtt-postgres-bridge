@@ -1,5 +1,4 @@
-"""A sample script demonstrating using mqtt_listen to listen to messages from an MQTT broker
-and pass them to PostgreSQL NOTIFY channel."""
+"""A application to bridge MQTT messages to Postgres NOTIFY channel."""
 
 import asyncio
 import logging

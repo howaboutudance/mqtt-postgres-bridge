@@ -18,6 +18,11 @@ _log = logging.getLogger(__name__)
 
 
 async def _publish_messages(broker: str, topic: str):
+    """Publish messages to the broker.
+
+    :param broker: str: The broker hostname.
+    :param topic: str: The topic to publish the messages to.
+    """
     async with aiomqtt.Client(broker) as client:
         for i in range(5):
             await client.publish(topic, f"test {i}")
