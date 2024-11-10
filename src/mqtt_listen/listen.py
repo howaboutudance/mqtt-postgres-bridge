@@ -1,4 +1,5 @@
 """Listener for MQTT brokers."""
+
 import asyncio
 import logging
 
@@ -10,10 +11,11 @@ import aiomqtt
 # Logger
 _log = logging.getLogger(__name__)
 
+
 # setup client and listen
 async def setup_client(hostname: str, topic: str, on_message: Coroutine[(aiomqtt.Message), Any, None]):
     """Setup the MQTT client and listen for messages.
-    
+
     :param hostname: The hostname of the MQTT broker.
     :param topic: The topic to subscribe to.
     :param on_message: The function to call when a message is recieved.
@@ -28,9 +30,11 @@ async def setup_client(hostname: str, topic: str, on_message: Coroutine[(aiomqtt
                 await on_message(message)
             await asyncio.sleep(0)
 
+
 # Creata a protocol for on_message functions
 class OnMessageFactoryProtocol(Protocol):
     """Protocol for creating on_message functions."""
+
     @abstractmethod
     async def __call__(self, msg: aiomqtt.Message):
         """Function to call when a message is recieved.
@@ -38,8 +42,10 @@ class OnMessageFactoryProtocol(Protocol):
         :param msg: The message that was recieved.
         """
 
+
 class QueueOnMessageFactory(OnMessageFactoryProtocol):
     """Factory for creating on_message functions that add messages to a queue."""
+
     def __init__(self, queue: asyncio.Queue):
         """Initialize the factory with a queue.
 
@@ -49,12 +55,14 @@ class QueueOnMessageFactory(OnMessageFactoryProtocol):
 
     async def __call__(self, msg: aiomqtt.Message):
         """Add the message to the queue.
-        
+
         :param msg: The message to add to the queue.
         """
-        _log.debug(f"func=QueueOnMessageFactory msg_payload={msg.payload.decode()} msg_topic={msg.topic} msg_qos={msg.qos}")
+        _log.debug(
+            f"func=QueueOnMessageFactory msg_payload={msg.payload.decode()} msg_topic={msg.topic} msg_qos={msg.qos}"
+        )
         await self._queue.put(msg)
-    
+
     @property
     def queue(self):
         """Get the queue."""

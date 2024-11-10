@@ -1,4 +1,5 @@
 """Mqtt_listen execute tests."""
+
 import asyncio
 import logging
 from unittest import mock
@@ -6,6 +7,7 @@ import pytest
 from mqtt_listen.listen import setup_client, QueueOnMessageFactory
 
 _log = logging.getLogger(__name__)
+
 
 @pytest.mark.asyncio
 async def test_setup_client():
@@ -16,10 +18,10 @@ async def test_setup_client():
     class AsyncForMock:
         def __init__(self, messages):
             self._messages = messages
-        
+
         def __aiter__(self):
             return self
-        
+
         async def __anext__(self):
             if not self._messages:
                 raise StopAsyncIteration
@@ -53,6 +55,7 @@ async def test_setup_client():
         m_client_instance.subscribe.assert_called_once_with(m_topic)
         # Assert the on_message function was called with the message
         on_message.assert_called_once()
+
 
 @pytest.mark.asyncio
 async def test_queue_on_message_factory():

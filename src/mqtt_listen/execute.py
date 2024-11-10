@@ -1,4 +1,5 @@
 """Execute the MQTT Listerner."""
+
 import asyncio
 import logging
 
@@ -14,7 +15,7 @@ _log = logging.getLogger(__name__)
 # main function
 async def main(broker: str, topic: str):
     """Main function to run the MQTT listener.
-    
+
     :param broker: The hostname of the MQTT broker.
     :param topic: The topic to subscribe to.
     """
@@ -30,10 +31,11 @@ async def main(broker: str, topic: str):
     await client_task()
     await process_task()
 
+
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
     broker_hostname = CONFIG.get("mqtt_broker_hostname")
-    topic = CONFIG.get("mqtt_topic") 
+    topic = CONFIG.get("mqtt_topic")
     try:
         asyncio.run(main(broker_hostname, topic))
     except KeyboardInterrupt:

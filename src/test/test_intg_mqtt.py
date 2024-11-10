@@ -1,4 +1,5 @@
 """Integration test mqtt_listen."""
+
 import asyncio
 import logging
 import re
@@ -15,6 +16,7 @@ pytestmark = [pytest.mark.integration]
 # Logger
 _log = logging.getLogger(__name__)
 
+
 async def _publish_messages(broker: str, topic: str):
     async with aiomqtt.Client(broker) as client:
         for i in range(5):
@@ -27,6 +29,7 @@ async def test_intg_setup_client():
     """Integration test for setup_client."""
     m_broker = CONFIG.get("mqtt_broker.hostname")
     m_topic = "test/test_intg_setup_client"
+
     async def on_message(msg: aiomqtt.Message):
         # Assert the message is an instance of aiomqtt.Message
         assert isinstance(msg, aiomqtt.Message)
@@ -37,9 +40,9 @@ async def test_intg_setup_client():
         assert re.match(r"test \d", payload_resp)
 
         # Assert the topic and qos
-        assert msg.topic == m_topic 
+        assert msg.topic == m_topic
         assert msg.qos == 0
-    
+
     # Create a task to listen for message and one to publish messages
     # to the broker, sleep for a second and then cancel the listen task
     test_task = asyncio.create_task(setup_client(m_broker, m_topic, on_message))
@@ -54,8 +57,3 @@ async def test_intg_setup_client():
         await test_task
     except asyncio.CancelledError:
         pytest.success("Task was cancelled successfully")
-
-
-
-
-
