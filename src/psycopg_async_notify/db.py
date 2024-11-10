@@ -1,13 +1,12 @@
 """Module of database connections and operations."""
 
 import logging
-
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
 
 import psycopg
 
-from psycopg_async_listen.config import CONFIG
+from psycopg_async_notify.config import CONFIG
 
 _log = logging.getLogger(__name__)
 
@@ -16,6 +15,11 @@ _log = logging.getLogger(__name__)
 # automatically close when the context manager exits
 @asynccontextmanager
 async def get_connection(autocommit: bool = True) -> AsyncGenerator[psycopg.AsyncConnection, None]:
+    """Get a connection context manager to the database.
+
+    :param autocommit: whether to autocommit transactions
+    :return: a connection to the database
+    """
     conn = await psycopg.AsyncConnection.connect(
         dbname=CONFIG.database.name,
         user=CONFIG.database.user,
@@ -35,6 +39,12 @@ async def get_connection(autocommit: bool = True) -> AsyncGenerator[psycopg.Asyn
 async def get_cursor(
     autocommit: bool = True, connection: psycopg.AsyncConnection = None
 ) -> AsyncGenerator[psycopg.AsyncCursor, None]:
+    """Get a cursor context manager to the database.
+
+    :param autocommit: whether to autocommit transactions
+    :param connection: an existing connection to use
+    :return: a cursor to the database
+    """
     if connection is None:
         async with get_connection(autocommit=autocommit) as conn:
             async with conn.cursor() as cursor:

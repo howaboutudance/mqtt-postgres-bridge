@@ -1,8 +1,11 @@
-# psycopg-async-listen
+# MQTT Postgresql Bridge 
 
 ## Summary
-`psycopg-async-listen` is a Python project that demonstrates using the `pyscopg3` library to add `NOTIFY` notifications
-to a `asyncio.Queue` asynchrnously. 
+`mqtt-postgres-bridge` is a Python project that demonstrates using the `pyscopg3` and `aiomqtt` libraries to: 
+- listening`NOTIFY` notificationsto a `asyncio.Queue` asynchrnously. 
+- Publish to a `NOTIFY` channel asynchrnously
+- Listen to a MQTT topic
+- run an application that will listen for MQTT messages and push them to a Postgresql `NOTIFY` channel
 
 ## Setup Development Environment
 
