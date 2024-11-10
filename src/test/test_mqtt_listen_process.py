@@ -6,7 +6,8 @@ from unittest.mock import AsyncMock
 import aiomqtt
 import pytest
 
-from mqtt_listen.process import process_messages_to_log, process_messages_to_queue
+from mqtt_listen.process import (process_messages_to_log,
+                                 process_messages_to_queue)
 
 
 @pytest.mark.parametrize("queue_content, mocked_queue", [([], False), ([1, 2, 3], False), (None, True)])

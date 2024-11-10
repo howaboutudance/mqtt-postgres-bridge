@@ -8,7 +8,7 @@ import aiomqtt
 import pytest
 
 from mqtt_listen.config import CONFIG
-from mqtt_listen.execute import setup_client
+from mqtt_listen.listen import setup_client
 
 # Mark this test module as containing integration tests
 pytestmark = [pytest.mark.integration]
