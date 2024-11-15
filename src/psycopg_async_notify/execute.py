@@ -1,7 +1,10 @@
 """Main logic of the application."""
 
+import argparse
 import asyncio
 import logging
+
+import psycopg
 
 from psycopg_async_notify.db import get_connection
 from psycopg_async_notify.listen import QueuePutNotifyHandler
@@ -34,3 +37,19 @@ async def listen_for_notifications(channel: str, queue: asyncio.Queue):
                 conn.remove_notify_handler(notify_handler_factory.callback)
                 await conn.execute(f"UNLISTEN {channel};")
                 raise e
+
+
+def config_run(queue: asyncio.Queue = None):
+    """Execute the application."""
+    queue = queue or asyncio.Queue()
+
+    parser = argparse.ArgumentParser(description="Listen for notifications on a channel.")
+    parser.add_argument("channel", help="The channel to listen for notifications on.")
+    args = parser.parse_args()
+
+    try:
+        asyncio.run(listen_for_notifications(args.channel, queue), debug=True)
+    except KeyboardInterrupt:
+        _log.info("Received keyboard interrupt, disconnecting")
+    except psycopg.OperationalError as e:
+        _log.error("An error occurred: %s, disconnecting", e)
