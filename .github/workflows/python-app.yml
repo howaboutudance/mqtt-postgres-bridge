@@ -33,6 +33,7 @@ jobs:
         # stop the build if there are Python syntax errors or undefined names
         tox -e format
     - name: Lint with Ruff
+      run: |
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         tox -e lint
     - name: Test with pytest
