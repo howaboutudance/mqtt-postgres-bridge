@@ -7,7 +7,7 @@ import psycopg
 import psycopg.sql
 import pytest
 
-from psycopg_async_notify.execute import listen_for_notifications
+from psycopg_async_notify.execute import config_run, listen_for_notifications
 
 
 # assert get_connection was called
@@ -62,3 +62,28 @@ async def test_listen_for_notifications_handlers():
         assert m_context_manager.return_value.add_notify_handler.call_count == 1
         assert m_context_manager.return_value.execute.call_count >= 1
         assert m_context_manager.return_value.remove_notify_handler.call_count == 1
+
+
+@pytest.mark.parametrize("error_expected", [psycopg.errors.OperationalError, KeyboardInterrupt])
+def test_config_and_run(error_expected):
+    """Test config_run.
+
+    Test Plan:
+    - Mock listen_for_notifications
+    - Call config_run
+    - Assert listen_for_notifications was called
+    """
+    m_channel = "test/test_config_and_run"
+    m_queue = asyncio.Queue()
+    with (
+        mock.patch(
+            "psycopg_async_notify.execute.listen_for_notifications", new_callable=mock.AsyncMock
+        ) as m_listen_for_notifications,
+        mock.patch("psycopg_async_notify.execute.argparse.ArgumentParser.parse_args") as m_parse_args,
+    ):
+        m_parse_args.return_value = mock.Mock(channel="test/test_config_and_run")
+        if error_expected:
+            m_listen_for_notifications.side_effect = error_expected
+        config_run(m_queue)
+
+        m_listen_for_notifications.assert_called_once_with(m_channel, m_queue)

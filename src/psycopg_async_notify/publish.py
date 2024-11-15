@@ -5,7 +5,6 @@ import json
 import logging
 import uuid
 
-from psycopg_async_notify import db
 from psycopg_async_notify.db import get_connection
 
 # Logger
@@ -18,7 +17,7 @@ async def publish_to_pg_notify(queue: asyncio.Queue, topic: str):
     :param queue: The queue to get messages from.
     """
     # Connect asycnronously to the PostgreSQL database
-    async with db.get_connection() as conn:
+    async with get_connection() as conn:
         async with conn.cursor() as cur:
             # Process messages from the queue
             # verify the PG NOTIFY channel exists is not, create it

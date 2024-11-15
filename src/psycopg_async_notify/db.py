@@ -36,18 +36,14 @@ async def get_connection(autocommit: bool = True) -> AsyncGenerator[psycopg.Asyn
 
 
 @asynccontextmanager
-async def get_cursor(
-    autocommit: bool = True, connection: psycopg.AsyncConnection = None
-) -> AsyncGenerator[psycopg.AsyncCursor, None]:
+async def get_cursor(autocommit: bool = True) -> AsyncGenerator[psycopg.AsyncCursor, None]:
     """Get a cursor context manager to the database.
 
     :param autocommit: whether to autocommit transactions
-    :param connection: an existing connection to use
     :return: a cursor to the database
     """
-    if connection is None:
-        async with get_connection(autocommit=autocommit) as conn:
-            async with conn.cursor() as cursor:
-                _log.debug("created cursor")
-                yield cursor
-                _log.debug("closing cursor")
+    async with get_connection(autocommit=autocommit) as conn:
+        async with conn.cursor() as cursor:
+            _log.debug("created cursor")
+            yield cursor
+            _log.debug("closing cursor")
