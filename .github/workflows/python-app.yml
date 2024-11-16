@@ -27,12 +27,13 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install tox pytest isort ruff
-        if [ -f requirements-dev.txt ]; then pip install -r requirements0-dev.txt; fi
+        if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
     - name: Format with ruff
       run: |
         # stop the build if there are Python syntax errors or undefined names
         tox -e format
     - name: Lint with Ruff
+      run: |
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         tox -e lint
     - name: Test with pytest
